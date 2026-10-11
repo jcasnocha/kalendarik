@@ -10,11 +10,14 @@ h1{font-size:1.6em;margin-bottom:4px}h2{margin-top:28px;font-size:1.2em}
 .lang{margin:12px 0 24px}.lang a{margin-right:12px}
 section{background:#fff;border-radius:12px;padding:8px 24px 20px;box-shadow:0 2px 6px rgba(0,0,0,.08);margin-bottom:32px}
 .small{color:#666;font-size:.9em}
+.lang button{border:1px solid #694D3F;background:#fff;color:#694D3F;padding:6px 16px;border-radius:20px;cursor:pointer;margin-right:8px;font-size:1em}
+.lang button.active{background:#694D3F;color:#fff}
+section{display:none}section.show{display:block}
 </style>
 </head>
 <body>
 <h1>Kalendárik</h1>
-<div class="lang"><a href="#sk">Slovensky</a><a href="#cz">Česky</a></div>
+<div class="lang"><button id="b-sk" onclick="setLang('sk')">Slovensky</button><button id="b-cz" onclick="setLang('cz')">Česky</button></div>
 
 <section id="sk">
 <h2>Zásady ochrany súkromia</h2>
@@ -51,5 +54,11 @@ section{background:#fff;border-radius:12px;padding:8px 24px 20px;box-shadow:0 2p
 <h2>Kontakt</h2>
 <p>Jozef Časnocha – <a href="mailto:jozef.casnocha4@gmail.com">jozef.casnocha4@gmail.com</a></p>
 </section>
+<script>
+function setLang(l){document.querySelectorAll('section').forEach(e=>e.classList.toggle('show',e.id===l));
+document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('active',b.id==='b-'+l));
+document.documentElement.lang=l==='cz'?'cs':'sk';history.replaceState(null,'','#'+l);}
+setLang(location.hash==='#cz'?'cz':'sk');
+</script>
 </body>
 </html>
