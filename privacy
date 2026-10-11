@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kalendárik – Zásady ochrany súkromia</title>
+<style>
+body{font-family:Roboto,Arial,sans-serif;max-width:760px;margin:0 auto;padding:24px;line-height:1.6;color:#222;background:#fafafa}
+h1{font-size:1.6em;margin-bottom:4px}h2{margin-top:28px;font-size:1.2em}
+.lang{margin:12px 0 24px}.lang a{margin-right:12px}
+section{background:#fff;border-radius:12px;padding:8px 24px 20px;box-shadow:0 2px 6px rgba(0,0,0,.08);margin-bottom:32px}
+.small{color:#666;font-size:.9em}
+</style>
+</head>
+<body>
+<h1>Kalendárik</h1>
+<div class="lang"><a href="#sk">Slovensky</a><a href="#cz">Česky</a></div>
+
+<section id="sk">
+<h2>Zásady ochrany súkromia</h2>
+<p class="small">Účinné od: 11. 10. 2026</p>
+<p>Aplikácia Kalendárik (sk.jcasnocha.kalendarik) rešpektuje vaše súkromie. Tento dokument vysvetľuje, ako aplikácia zaobchádza s údajmi.</p>
+<h2>Aké údaje aplikácia ukladá</h2>
+<p>Aplikácia ukladá iba údaje, ktoré do nej sami zadáte: mená a dátumy narodenín, výročia, poznámky, iné udalosti, pracovné zmeny, obľúbené mená a citáty a nastavenia aplikácie a widgetov.</p>
+<h2>Kde sú údaje uložené</h2>
+<p>Všetky údaje sú uložené výhradne vo vašom zariadení. Aplikácia nemá prístup na internet a žiadne údaje neodosiela na server ani tretím stranám.</p>
+<h2>Zber a zdieľanie údajov</h2>
+<p>Aplikácia nezbiera žiadne osobné údaje, nepoužíva analytické nástroje, reklamy ani sledovanie a nezdieľa údaje s nikým.</p>
+<h2>Povolenia</h2>
+<p>Oznámenia a presné pripomienky slúžia len na upozornenie na meniny, narodeniny a udalosti v čase, ktorý si nastavíte. Ukladanie do galérie sa používa iba vtedy, keď sami uložíte obrázok citátu.</p>
+<h2>Vymazanie údajov</h2>
+<p>Údaje môžete kedykoľvek vymazať priamo v aplikácii alebo odinštalovaním aplikácie, prípadne vymazaním jej údajov v nastaveniach telefónu.</p>
+<h2>Kontakt</h2>
+<p>Jozef Časnocha – <a href="mailto:jozef.casnocha4@gmail.com">jozef.casnocha4@gmail.com</a></p>
+</section>
+
+<section id="cz">
+<h2>Zásady ochrany soukromí</h2>
+<p class="small">Účinné od: 11. 10. 2026</p>
+<p>Aplikace Kalendárik (sk.jcasnocha.kalendarik) respektuje vaše soukromí. Tento dokument vysvětluje, jak aplikace nakládá s údaji.</p>
+<h2>Jaké údaje aplikace ukládá</h2>
+<p>Aplikace ukládá pouze údaje, které do ní sami zadáte: jména a data narozenin, výročí, poznámky, jiné události, pracovní směny, oblíbená jména a citáty a nastavení aplikace a widgetů.</p>
+<h2>Kde jsou údaje uloženy</h2>
+<p>Všechny údaje jsou uloženy výhradně ve vašem zařízení. Aplikace nemá přístup k internetu a žádné údaje neodesílá na server ani třetím stranám.</p>
+<h2>Sběr a sdílení údajů</h2>
+<p>Aplikace neshromažďuje žádné osobní údaje, nepoužívá analytické nástroje, reklamy ani sledování a nesdílí údaje s nikým.</p>
+<h2>Oprávnění</h2>
+<p>Oznámení a přesné připomínky slouží pouze k upozornění na jmeniny, narozeniny a události v čase, který si nastavíte. Ukládání do galerie se používá jen tehdy, když sami uložíte obrázek citátu.</p>
+<h2>Smazání údajů</h2>
+<p>Údaje můžete kdykoli smazat přímo v aplikaci nebo odinstalováním aplikace, případně smazáním jejích dat v nastavení telefonu.</p>
+<h2>Kontakt</h2>
+<p>Jozef Časnocha – <a href="mailto:jozef.casnocha4@gmail.com">jozef.casnocha4@gmail.com</a></p>
+</section>
+</body>
+</html>
