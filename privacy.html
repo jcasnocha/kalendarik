@@ -1,78 +1,342 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="sk">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kalendárik – Zásady ochrany súkromia</title>
-<style>
-body{font-family:Roboto,Arial,sans-serif;max-width:760px;margin:0 auto;padding:24px;line-height:1.6;color:#222;background:#fafafa}
-h1{font-size:1.6em;margin-bottom:4px}h2{margin-top:28px;font-size:1.2em}
-.lang{margin:12px 0 24px}.lang a{margin-right:12px}
-section{background:#fff;border-radius:12px;padding:8px 24px 20px;box-shadow:0 2px 6px rgba(0,0,0,.08);margin-bottom:32px}
-.small{color:#666;font-size:.9em}
-.lang button{border:1px solid #694D3F;background:#fff;color:#694D3F;padding:6px 16px;border-radius:20px;cursor:pointer;margin-right:8px;font-size:1em}
-.lang button.active{background:#694D3F;color:#fff}
-section{display:none}section.show{display:block}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f7f9ff">
+  <meta name="description" content="Zásady ochrany osobných údajov aplikácie Kalendárik. Zistite, aké údaje aplikácia používa, kde ich uchováva a ako spravuje reklamy a zálohy.">
+  <title>Ochrana súkromia — Kalendárik</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #65718a;
+      --blue: #3478f6;
+      --blue-dark: #1e5ed5;
+      --orange: #f7a928;
+      --paper: #fff;
+      --line: #e8edf6;
+      --wash: #f5f8ff;
+      --green: #159b70;
+      --shadow: 0 20px 55px rgba(31, 62, 117, .09);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0; background: #f7f9ff; color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--blue-dark); }
+    .shell { width: min(1080px, calc(100% - 40px)); margin-inline: auto; }
+    .nav { display: flex; align-items: center; justify-content: space-between; padding: 21px 0; }
+    .brand { display: inline-flex; gap: 10px; align-items: center; text-decoration: none; color: var(--ink); font-weight: 800; letter-spacing: -.04em; font-size: 19px; }
+    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 13px; background: var(--blue); color: white; box-shadow: 0 7px 16px rgba(52,120,246,.25); }
+    .brand-mark svg { width: 22px; }
+    .nav-back { text-decoration: none; font-size: 13px; font-weight: 700; color: var(--muted); padding: 9px 13px; border-radius: 999px; }
+    .nav-back:hover { background: #edf3ff; color: var(--blue-dark); }
+    .hero {
+      padding: 57px 0 51px;
+      background: radial-gradient(ellipse at 86% 0%, rgba(179,209,255,.48), transparent 38%), radial-gradient(ellipse at 4% 90%, rgba(255,226,171,.28), transparent 28%);
+    }
+    .eyebrow { display: inline-flex; gap: 8px; align-items: center; padding: 7px 12px; color: var(--blue-dark); background: #eaf1ff; border: 1px solid #d9e6ff; border-radius: 99px; font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+    h1 { max-width: 800px; margin: 18px 0 12px; font-size: clamp(39px, 6vw, 58px); line-height: 1.06; letter-spacing: -.06em; }
+    .hero p { max-width: 720px; margin: 0; color: var(--muted); font-size: 17px; }
+    .language-bar { display: flex; gap: 8px; align-items: center; margin-top: 25px; }
+    .language-bar span { margin-right: 4px; color: var(--muted); font-size: 12px; font-weight: 650; }
+    .language-button { border: 1px solid var(--line); border-radius: 999px; background: white; color: var(--muted); padding: 8px 13px; font: inherit; font-size: 12px; font-weight: 750; cursor: pointer; }
+    .language-button[aria-pressed="true"] { border-color: #c7d9ff; background: #eaf1ff; color: var(--blue-dark); }
+    main { padding: 34px 0 78px; }
+    .summary {
+      display: grid; grid-template-columns: 48px 1fr; gap: 15px; align-items: start;
+      margin-bottom: 22px; padding: 22px; border: 1px solid #dce8ff; border-radius: 20px;
+      background: linear-gradient(115deg, #eef4ff, #fff);
+    }
+    .summary-icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 14px; background: white; color: var(--blue); }
+    .summary-icon svg { width: 22px; }
+    .summary h2 { margin: 0 0 4px; font-size: 16px; letter-spacing: -.02em; }
+    .summary p { margin: 0; color: var(--muted); font-size: 14px; }
+    .layout { display: grid; grid-template-columns: 245px minmax(0, 1fr); gap: 22px; align-items: start; }
+    .toc { position: sticky; top: 18px; padding: 20px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); }
+    .toc-title { margin: 0 0 12px; color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; }
+    .toc ol { margin: 0; padding-left: 20px; color: #91a0b7; }
+    .toc li { padding: 4px 0; font-size: 12px; }
+    .toc a { color: #536078; text-decoration: none; }
+    .toc a:hover { color: var(--blue-dark); }
+    .policy { display: grid; gap: 13px; }
+    .policy-card { scroll-margin-top: 18px; padding: 24px 26px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); }
+    .policy-card h2 { margin: 0 0 9px; font-size: 19px; line-height: 1.3; letter-spacing: -.035em; }
+    .policy-card p { margin: 8px 0; color: #536078; font-size: 14px; }
+    .policy-card ul { margin: 10px 0 0; padding-left: 21px; color: #536078; font-size: 14px; }
+    .policy-card li { padding: 3px 0; }
+    .policy-card strong { color: var(--ink); }
+    .policy-card a { text-underline-offset: 3px; }
+    .note { padding: 13px 15px; border-radius: 13px; background: #f3f7ff; color: #536078; font-size: 13px; }
+    .contact-card { border-color: #d8eee6; background: linear-gradient(115deg, #f0faf6, #fff); }
+    .contact-card a { font-weight: 750; }
+    .updated { margin: 18px 0 0; color: #8791a5; font-size: 12px; text-align: right; }
+    footer { padding: 26px 0 38px; border-top: 1px solid var(--line); }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 18px; color: #8791a5; font-size: 12px; }
+    .footer-links { display: flex; gap: 18px; flex-wrap: wrap; }
+    .footer-links a { color: #65718a; text-decoration: none; }
+    .footer-links a:hover { color: var(--blue-dark); }
+    [hidden] { display: none !important; }
+    @media (max-width: 760px) {
+      .hero { padding: 42px 0; }
+      .layout { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .toc ol { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; }
+    }
+    @media (max-width: 540px) {
+      .shell { width: min(100% - 28px, 1080px); }
+      .nav { padding: 15px 0; }
+      .nav-back { font-size: 12px; padding: 8px 9px; }
+      .hero { padding: 34px 0; }
+      .hero p { font-size: 15px; }
+      main { padding-top: 22px; }
+      .summary { grid-template-columns: 38px 1fr; gap: 11px; padding: 17px; }
+      .summary-icon { width: 36px; height: 36px; }
+      .toc { padding: 17px; }
+      .toc ol { grid-template-columns: 1fr; }
+      .policy-card { padding: 20px 18px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
 </head>
 <body>
-<h1>Kalendárik</h1>
-<div class="lang"><button id="b-sk" onclick="setLang('sk')">Slovensky</button><button id="b-cz" onclick="setLang('cz')">Česky</button></div>
+  <header class="shell nav">
+    <a class="brand" href="kalendarik.html" aria-label="Kalendárik – domov">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="16" rx="4" stroke="currentColor" stroke-width="2"/><path d="M7 3v4M17 3v4M3 10h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m12 13 .8 1.7 1.9.3-1.4 1.3.3 1.9-1.6-.9-1.7.9.4-1.9-1.4-1.3 1.9-.3.8-1.7Z" fill="#FFC451"/></svg>
+      </span>
+      Kalendárik
+    </a>
+    <a class="nav-back" href="kalendarik.html">← Späť na stránku aplikácie</a>
+  </header>
 
-<section id="sk">
-<h2>Zásady ochrany súkromia</h2>
-<p class="small">Účinné od: 11. 10. 2025</p>
-<p>Aplikácia Kalendárik (sk.jcasnocha.kalendarik) rešpektuje vaše súkromie. Tento dokument vysvetľuje, ako aplikácia zaobchádza s údajmi.</p>
+  <section class="hero">
+    <div class="shell">
+      <div class="eyebrow"><span class="dot"></span> Vaše údaje, zrozumiteľne</div>
+      <h1 id="page-title">Ochrana osobných údajov</h1>
+      <p id="page-intro">Kalendárik je navrhnutý tak, aby vaše vlastné udalosti zostávali vo vašom zariadení. Tu vysvetľujeme aj to, ako fungujú reklamy, nákupy a zálohy.</p>
+      <div class="language-bar" aria-label="Jazyk zásad ochrany súkromia">
+        <span>Jazyk:</span>
+        <button class="language-button" type="button" data-language-button="sk" aria-pressed="true">Slovenčina</button>
+        <button class="language-button" type="button" data-language-button="cz" aria-pressed="false">Čeština</button>
+      </div>
+    </div>
+  </section>
 
-<h2>Aké údaje aplikácia ukladá</h2>
-<p>Aplikácia ukladá iba údaje, ktoré do nej sami zadáte: mená a dátumy narodenín, výročia, poznámki, iné udalosti, pracovné zmeny, obľúbené mená a citáty, a nastavenia aplikácie a widgetov. Tieto údaje sú uložené výhradne lokálne vo vašom zariadení.</p>
+  <main class="shell">
+    <article class="language-page" data-language-page="sk" id="sk">
+      <div class="summary">
+        <div class="summary-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4.8 3 8.2 7 10 4-1.8 7-5.2 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h2>Stručne povedané</h2><p>Kalendárik nemá používateľské účty ani vlastný server na ukladanie vašich udalostí. Udalosti sa ukladajú v zariadení. Google môže spracúvať údaje potrebné na reklamy a nákupy cez svoje služby.</p></div>
+      </div>
 
-<h2>Reklamy a tretia strana (Google AdMob)</h2>
-<p>Aplikácia v bezplatnej verzii zobrazuje reklamy poskytované službou <strong>Google AdMob</strong> (spoločnosť Google). Na tento účel aplikácia vyžaduje pripojenie k internetu. Spoločnosť Google môže zhromažďovať a používat určité údaje (napr. identifikátory zariadenia, IP adresu či údaje o interakcii s reklamami) v súlade so <a href="https://policies.google.com/privacy" target="_blank">Zásadami ochrany súkromia spoločnosti Google</a>.</p>
-<p>Používatelia v Európskom hospodárskom priestore (EHP) a Spojenom kráľovstve sú pri prvom spustení vyzvaní na udelenie súhlasu s personalizáciou reklám prostredníctvom systému GDPR (Google UMP SDK). Svoj súhlas môžete kedykoľvek zmeniť v Nastaveniach aplikácie v sekcii súkromia. Zakúpením prémiovej verzie <em>Kalendárik Plus</em> sa všetky reklamy natrvalo vypnú.</p>
+      <div class="layout">
+        <nav class="toc" aria-label="Obsah zásad">
+          <p class="toc-title">V tejto zásade</p>
+          <ol>
+            <li><a href="#sk-prevadzkovatel">Kto aplikáciu prevádzkuje</a></li>
+            <li><a href="#sk-udaje">Aké údaje aplikácia spracúva</a></li>
+            <li><a href="#sk-ulozenie">Kde sa údaje ukladajú</a></li>
+            <li><a href="#sk-reklamy">Reklamy a súhlas</a></li>
+            <li><a href="#sk-nakupy">Nákupy Kalendárik PLUS</a></li>
+            <li><a href="#sk-zaloha">Zálohy a export</a></li>
+            <li><a href="#sk-prava">Vaše možnosti a práva</a></li>
+            <li><a href="#sk-zmeny">Zmeny a kontakt</a></li>
+          </ol>
+        </nav>
 
-<h2>Povolenia</h2>
-<p>Oznámenia a presné pripomienky slúžia len na upozornenie na meniny, narodeniny a udalosti v čase, ktorý si nastavíte. Ukladanie do galérie sa používa iba vtedy, keď sami uložíte obrázok citátu.</p>
+        <div class="policy">
+          <section class="policy-card" id="sk-prevadzkovatel">
+            <h2>1. Kto aplikáciu prevádzkuje</h2>
+            <p>Aplikáciu Kalendárik vyvíja a prevádzkuje <strong>Jozef Časnocha</strong>. Ak máte otázku týkajúcu sa ochrany súkromia alebo chcete uplatniť svoje práva, napíšte na <a href="mailto:jozef.casnocha4@gmail.com">jozef.casnocha4@gmail.com</a>.</p>
+          </section>
 
-<h2>Vymazanie údajov</h2>
-<p>Všetky vami vytvorené údaje môžete kedykoľvek vymazať v aplikácii v Nastaveniach tlačidlom „Vymazať všetky dáta“. Údaje sa vymažú aj odinštalovaním aplikácie alebo vymazaním jej údajov v nastaveniach telefónu.</p>
+          <section class="policy-card" id="sk-udaje">
+            <h2>2. Aké údaje aplikácia spracúva</h2>
+            <p>Na fungovanie kalendára môžete do aplikácie zadať napríklad mená a dátumy narodenín, výročia, poznámky, obľúbené meniny a citáty, pracovné zmeny a vlastné nastavenia. Tieto údaje môžu obsahovať informácie o vás alebo o ľuďoch, ktorých si do kalendára zapíšete.</p>
+            <p>Aplikácia nevyžaduje registráciu a v kóde aplikácie nie je vlastný analytický ani používateľský účet. Obsah kalendára sa neposiela na server prevádzkovateľa.</p>
+            <p>Ak odošlete e-mail cez kontakt v aplikácii, sami si zvolíte obsah správy a odošlete ju cez e-mailovú aplikáciu alebo službu vo svojom zariadení.</p>
+          </section>
 
-<h2>Záloha a obnova</h2>
-<p>Aplikácia umožňuje vytvoriť zálohu údajov do súboru JSON. Súbor sa uloží iba na miesto, ktoré si sami zvolíte (napr. do telefónu alebo na Disk Google). Aplikácia ho nikam automaticky neodosiela.</p>
+          <section class="policy-card" id="sk-ulozenie">
+            <h2>3. Kde sa údaje ukladajú</h2>
+            <p>Vlastné udalosti a nastavenia sa ukladajú lokálne v úložisku aplikácie. Meniny, sviatky, citáty a zaujímavosti dňa sú súčasťou aplikácie a nie sú osobnými údajmi používateľa.</p>
+            <p>Pripomienky sa plánujú v zariadení. Ich text môže obsahovať názov alebo popis udalosti a môže byť viditeľný na uzamknutej obrazovke podľa nastavení oznámení vášho telefónu.</p>
+            <div class="note">Prevádzkovateľ nemá prístup k udalostiam uloženým iba vo vašom zariadení. Ak aplikáciu odinštalujete alebo vymažete jej údaje, miestne záznamy sa odstránia; obnovenie zo zálohy závisí od vašich nastavení zálohovania.</div>
+          </section>
 
-<h2>Kontakt</h2>
-<p>Jozef Časnocha – <a href="mailto:jozef.casnocha4@gmail.com">jozef.casnocha4@gmail.com</a></p>
-</section>
+          <section class="policy-card" id="sk-reklamy">
+            <h2>4. Reklamy a vaše voľby</h2>
+            <p>Bezplatná verzia môže zobrazovať reklamy cez <strong>Google Mobile Ads</strong>. Pri ich poskytovaní Google môže automaticky spracúvať a zdieľať s reklamnými partnermi napríklad IP adresu, interakcie s aplikáciou a reklamami, diagnostické údaje a identifikátory zariadenia alebo účtu. IP adresa môže slúžiť aj na odhad všeobecnej polohy. Rozsah spracúvania závisí od nastavení a vašich volieb súhlasu.</p>
+            <p><strong>Google UMP</strong> zobrazuje príslušné informácie a formulár súhlasu tam, kde sa vyžaduje. Ak je pre vašu oblasť dostupná voľba ochrany súkromia, nájdete ju v Nastaveniach aplikácie. Používatelia Kalendárik PLUS reklamy nedostávajú.</p>
+            <p>Viac informácií: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Ochrana súkromia Google</a> a <a href="https://developers.google.com/admob/android/privacy/play-data-disclosure" target="_blank" rel="noopener">údaje spracúvané Google Mobile Ads</a>.</p>
+          </section>
 
-<section id="cz">
-<h2>Zásady ochrany soukromí</h2>
-<p class="small">Účinné od: 11. 10. 2025</p>
-<p>Aplikace Kalendárik (sk.jcasnocha.kalendarik) respektuje vaše soukromí. Tento dokument vysvětluje, jak aplikace nakládá s údaji.</p>
+          <section class="policy-card" id="sk-nakupy">
+            <h2>5. Nákupy Kalendárik PLUS</h2>
+            <p>Predplatné alebo jednorazový nákup sa uskutočňuje cez <strong>Google Play Billing</strong>. Google Play spracúva platbu a poskytuje aplikácii informáciu o produkte a stave nákupu, aby mohla odomknúť PLUS. Aplikácia nečíta ani neukladá údaje o platobnej karte. Prevádzkovateľ nemá vlastný platobný server.</p>
+            <p>Informácie o spracúvaní údajov pri platbe nájdete v <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">zásadách ochrany súkromia Google</a> a v nastaveniach svojho účtu Google Play.</p>
+          </section>
 
-<h2>Jaké údaje aplikace ukládá</h2>
-<p>Aplikace ukládá pouze údaje, které do ní sami zadáte: jména a data narozenin, výročí, poznámky, jiné události, pracovní směny, oblíbená jména a citáty, a nastavení aplikace a widgetů. Tyto údaje jsou uloženy výhradně lokálně ve vašem zařízení.</p>
+          <section class="policy-card" id="sk-zaloha">
+            <h2>6. Zálohy a export</h2>
+            <p>Kalendárik umožňuje vytvoriť JSON zálohu. Súbor môže obsahovať vaše poznámky, mená a dátumy narodenín, výročia, obľúbené položky a nastavenia. Uloží sa na miesto, ktoré vyberiete v systémovom výbere súborov. Za ďalšie kopírovanie alebo zdieľanie súboru zodpovedáte vy.</p>
+            <p>Aplikácia povoľuje aj systémové zálohovanie Androidu a na zálohovanie/obnovu zariadenia poskytuje databázu udalostí a vybrané nastavenia. Ak je zapnutá záloha Google/Android, jej spracúvanie a uchovávanie riadi systém a poskytovateľ zálohy podľa vašich nastavení.</p>
+          </section>
 
-<h2>Reklamy a třetí strana (Google AdMob)</h2>
-<p>Aplikace v bezplatné verzi zobrazuje reklamy poskytované službou <strong>Google AdMob</strong> (společnost Google). Za tímto účelem aplikace vyžaduje připojení k internetu. Společnost Google může shromažďovat a používat určité údaje (např. identifikátory zařízení, IP adresu či údaje o interakci s reklamami) v souladu se <a href="https://policies.google.com/privacy" target="_blank">Zásadami ochrany soukromí společnosti Google</a>.</p>
-<p>Uživatelé v Evropském hospodářském prostoru (EHP) a Spojeném království jsou při prvním spuštění vyzváni k udělení souhlasu s personalizací reklam prostřednictvím systému GDPR (Google UMP SDK). Svůj souhlas můžete kdykoliv změnit v Nastavení aplikace v sekci soukromí. Zakoupením prémiové verze <em>Kalendárik Plus</em> se všechny reklamy natrvalo vypnou.</p>
+          <section class="policy-card" id="sk-prava">
+            <h2>7. Vaše možnosti a práva</h2>
+            <ul>
+              <li>Udalosti môžete prezerať, upravovať alebo mazať priamo v aplikácii.</li>
+              <li>V Nastaveniach môžete vymazať používateľské údaje a spravovať voľby súkromia pri reklamách, ak sú dostupné.</li>
+              <li>Zálohovanie Androidu môžete spravovať v nastaveniach zariadenia a Google účtu.</li>
+              <li>V súvislosti s údajmi spracúvanými prevádzkovateľom môžete kontaktovať prevádzkovateľa na uvedenom e-maile. Pri údajoch spracúvaných spoločnosťou Google použite jej nástroje a zásady ochrany súkromia.</li>
+            </ul>
+            <p>Keďže prevádzkovateľ nemá vlastný server s vašimi kalendárovými záznamami, ich prístup, opravu a vymazanie spravidla vykonáte priamo vo svojom zariadení alebo v zálohe, ktorú ovládate.</p>
+          </section>
 
-<h2>Oprávnění</h2>
-<p>Oznámení a přesné připomínky slouží pouze k upozornění na jmeniny, narozeniny a události v čase, který si nastavíte. Ukládání do galérie se používá jen tehdy, když sami uložíte obrázek citátu.</p>
+          <section class="policy-card" id="sk-zmeny">
+            <h2>8. Zmeny týchto zásad</h2>
+            <p>Ak sa zmení spôsob fungovania aplikácie alebo spracúvania údajov, aktualizujeme túto stránku. Aktuálne znenie je vždy dostupné na tejto adrese.</p>
+          </section>
 
-<h2>Smazání údajů</h2>
-<p>Všechna vámi vytvořená data můžete kdykoliv smazat v aplikaci v Nastavení tlačítkem „Smazat všechna data“. Data se smažou také odinstalováním aplikace nebo smazáním jejích dat v nastavení telefonu.</p>
+          <section class="policy-card contact-card">
+            <h2>Máte otázku?</h2>
+            <p>Napíšte nám na <a href="mailto:jozef.casnocha4@gmail.com">jozef.casnocha4@gmail.com</a>.</p>
+          </section>
+          <p class="updated">Naposledy aktualizované: 21. novembra 2026</p>
+        </div>
+      </div>
+    </article>
 
-<h2>Záloha a obnova</h2>
-<p>Aplikace umožňuje vytvořit zálohu dat do souboru JSON. Soubor se uloží pouze na místo, které si sami zvolíte (např. do telefonu nebo na Disk Google). Aplikace jej nikam automaticky neodesílá.</p>
+    <article class="language-page" data-language-page="cz" id="cz" hidden>
+      <div class="summary">
+        <div class="summary-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3 5 6v5c0 4.8 3 8.2 7 10 4-1.8 7-5.2 7-10V6l-7-3Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div><h2>Stručně řečeno</h2><p>Kalendářík nemá uživatelské účty ani vlastní server pro ukládání vašich událostí. Události se ukládají v zařízení. Google může zpracovávat údaje potřebné pro reklamy a nákupy prostřednictvím svých služeb.</p></div>
+      </div>
 
-<h2>Kontakt</h2>
-<p>Jozef Časnocha – <a href="mailto:jozef.casnocha4@gmail.com">jozef.casnocha4@gmail.com</a></p>
-</section>
-<script>
-function setLang(l){document.querySelectorAll('section').forEach(e=>e.classList.toggle('show',e.id===l));
-document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('active',b.id==='b-'+l));
-document.documentElement.lang=l==='cz'?'cs':'sk';history.replaceState(null,'','#'+l);}
-setLang(location.hash==='#cz'?'cz':'sk');
-</script>
+      <div class="layout">
+        <nav class="toc" aria-label="Obsah zásad">
+          <p class="toc-title">V těchto zásadách</p>
+          <ol>
+            <li><a href="#cz-provozovatel">Kdo aplikaci provozuje</a></li>
+            <li><a href="#cz-udaje">Jaké údaje aplikace zpracovává</a></li>
+            <li><a href="#cz-ulozeni">Kde se údaje ukládají</a></li>
+            <li><a href="#cz-reklamy">Reklamy a souhlas</a></li>
+            <li><a href="#cz-nakupy">Nákupy Kalendárik PLUS</a></li>
+            <li><a href="#cz-zaloha">Zálohy a export</a></li>
+            <li><a href="#cz-prava">Vaše možnosti a práva</a></li>
+            <li><a href="#cz-zmeny">Změny a kontakt</a></li>
+          </ol>
+        </nav>
+
+        <div class="policy">
+          <section class="policy-card" id="cz-provozovatel">
+            <h2>1. Kdo aplikaci provozuje</h2>
+            <p>Aplikaci Kalendářík vyvíjí a provozuje <strong>Jozef Časnocha</strong>. Máte-li otázku týkající se ochrany soukromí nebo chcete uplatnit svá práva, napište na <a href="mailto:jozef.casnocha4@gmail.com">jozef.casnocha4@gmail.com</a>.</p>
+          </section>
+
+          <section class="policy-card" id="cz-udaje">
+            <h2>2. Jaké údaje aplikace zpracovává</h2>
+            <p>Do kalendáře můžete zadat například jména a data narozenin, výročí, poznámky, oblíbené svátky a citáty, pracovní směny a vlastní nastavení. Tyto údaje mohou obsahovat informace o vás nebo o lidech, které si do kalendáře zapíšete.</p>
+            <p>Aplikace nevyžaduje registraci a v kódu aplikace není vlastní analytika ani uživatelský účet. Obsah kalendáře se neposílá na server provozovatele.</p>
+            <p>Pokud odešlete e-mail přes kontakt v aplikaci, sami zvolíte obsah zprávy a odešlete ji prostřednictvím e-mailové aplikace nebo služby ve svém zařízení.</p>
+          </section>
+
+          <section class="policy-card" id="cz-ulozeni">
+            <h2>3. Kde se údaje ukládají</h2>
+            <p>Vlastní události a nastavení se ukládají lokálně v úložišti aplikace. Jména, svátky, citáty a zajímavosti dne jsou součástí aplikace a nejsou osobními údaji uživatele.</p>
+            <p>Připomínky se plánují v zařízení. Jejich text může obsahovat název nebo popis události a může být viditelný na zamčené obrazovce podle nastavení oznámení ve vašem telefonu.</p>
+            <div class="note">Provozovatel nemá přístup k událostem uloženým pouze ve vašem zařízení. Odinstalováním aplikace nebo vymazáním jejích dat se místní záznamy odstraní; obnovení ze zálohy závisí na vašem nastavení zálohování.</div>
+          </section>
+
+          <section class="policy-card" id="cz-reklamy">
+            <h2>4. Reklamy a vaše volby</h2>
+            <p>Bezplatná verze může zobrazovat reklamy prostřednictvím <strong>Google Mobile Ads</strong>. Při jejich poskytování může Google automaticky zpracovávat a sdílet s reklamními partnery například IP adresu, interakce s aplikací a reklamami, diagnostické údaje a identifikátory zařízení nebo účtu. IP adresa může sloužit také k odhadu obecné polohy. Rozsah zpracování závisí na nastavení a vašich volbách souhlasu.</p>
+            <p><strong>Google UMP</strong> zobrazuje příslušné informace a formulář souhlasu tam, kde je vyžadován. Pokud je pro vaši oblast dostupná volba ochrany soukromí, najdete ji v Nastavení aplikace. Uživatelé Kalendárik PLUS reklamy nedostávají.</p>
+            <p>Více informací: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Ochrana soukromí Google</a> a <a href="https://developers.google.com/admob/android/privacy/play-data-disclosure" target="_blank" rel="noopener">údaje zpracovávané Google Mobile Ads</a>.</p>
+          </section>
+
+          <section class="policy-card" id="cz-nakupy">
+            <h2>5. Nákupy Kalendárik PLUS</h2>
+            <p>Předplatné nebo jednorázový nákup probíhá prostřednictvím <strong>Google Play Billing</strong>. Google Play zpracuje platbu a poskytne aplikaci informaci o produktu a stavu nákupu, aby mohla odemknout PLUS. Aplikace nečte ani neukládá údaje o platební kartě. Provozovatel nemá vlastní platební server.</p>
+            <p>Více o zpracování údajů při platbě najdete v <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">zásadách ochrany soukromí Google</a> a v nastavení svého účtu Google Play.</p>
+          </section>
+
+          <section class="policy-card" id="cz-zaloha">
+            <h2>6. Zálohy a export</h2>
+            <p>Kalendářík umožňuje vytvořit zálohu JSON. Soubor může obsahovat vaše poznámky, jména a data narozenin, výročí, oblíbené položky a nastavení. Uloží se na místo, které vyberete v systémovém výběru souborů. Za další kopírování nebo sdílení souboru odpovídáte vy.</p>
+            <p>Aplikace povoluje také systémové zálohování Androidu a pro zálohování/obnovu zařízení poskytuje databázi událostí a vybraná nastavení. Pokud máte zapnutou zálohu Google/Android, její zpracování a uchovávání řídí systém a poskytovatel zálohy podle vašeho nastavení.</p>
+          </section>
+
+          <section class="policy-card" id="cz-prava">
+            <h2>7. Vaše možnosti a práva</h2>
+            <ul>
+              <li>Události můžete prohlížet, upravovat nebo mazat přímo v aplikaci.</li>
+              <li>V Nastavení můžete vymazat uživatelská data a spravovat volby soukromí u reklam, pokud jsou dostupné.</li>
+              <li>Zálohování Androidu můžete spravovat v nastavení zařízení a účtu Google.</li>
+              <li>V souvislosti s údaji zpracovávanými provozovatelem můžete kontaktovat provozovatele na uvedeném e-mailu. U údajů zpracovávaných společností Google použijte její nástroje a zásady ochrany soukromí.</li>
+            </ul>
+            <p>Protože provozovatel nemá vlastní server s vašimi kalendářovými záznamy, jejich přístup, opravu a vymazání zpravidla provedete přímo ve svém zařízení nebo v záloze, kterou ovládáte.</p>
+          </section>
+
+          <section class="policy-card" id="cz-zmeny">
+            <h2>8. Změny těchto zásad</h2>
+            <p>Pokud se změní fungování aplikace nebo zpracování údajů, aktualizujeme tuto stránku. Aktuální znění je vždy dostupné na této adrese.</p>
+          </section>
+
+          <section class="policy-card contact-card">
+            <h2>Máte otázku?</h2>
+            <p>Napište nám na <a href="mailto:jozef.casnocha4@gmail.com">jozef.casnocha4@gmail.com</a>.</p>
+          </section>
+          <p class="updated">Naposledy aktualizováno: 21. listopadu 2026</p>
+        </div>
+      </div>
+    </article>
+  </main>
+
+  <footer class="shell">
+    <div class="footer-inner">
+      <span>© 2026 Kalendárik</span>
+      <nav class="footer-links" aria-label="Odkazy v patičce">
+        <a href="kalendarik.html">Stránka aplikace</a>
+        <a href="mailto:jozef.casnocha4@gmail.com">Kontakt</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const pages = document.querySelectorAll("[data-language-page]");
+      const buttons = document.querySelectorAll("[data-language-button]");
+      const title = document.getElementById("page-title");
+      const intro = document.getElementById("page-intro");
+      const skTitle = "Ochrana osobných údajov";
+      const skIntro = "Kalendárik je navrhnutý tak, aby vaše vlastné udalosti zostávali vo vašom zariadení. Tu vysvetľujeme aj to, ako fungujú reklamy, nákupy a zálohy.";
+      const czTitle = "Zásady ochrany osobních údajů";
+      const czIntro = "Kalendářík je navržen tak, aby vaše vlastní události zůstávaly ve vašem zařízení. Vysvětlujeme také, jak fungují reklamy, nákupy a zálohy.";
+      function setLanguage(language) {
+        const czech = language === "cz";
+        pages.forEach(page => { page.hidden = page.dataset.languagePage !== language; });
+        buttons.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.languageButton === language)));
+        document.documentElement.lang = czech ? "cs" : "sk";
+        title.textContent = czech ? czTitle : skTitle;
+        intro.textContent = czech ? czIntro : skIntro;
+      }
+      buttons.forEach(button => button.addEventListener("click", () => {
+        const language = button.dataset.languageButton;
+        history.replaceState(null, "", language === "cz" ? "#cz" : "#sk");
+        setLanguage(language);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }));
+      setLanguage(location.hash.toLowerCase() === "#cz" ? "cz" : "sk");
+    })();
+  </script>
 </body>
 </html>
